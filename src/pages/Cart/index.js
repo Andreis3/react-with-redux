@@ -16,11 +16,11 @@ import { Container, ProductTable, Total } from './styles';
 
 function Cart({ cart, total, removeFromCart, updateAmount }) {
   function increment(product) {
-    updateAmount(product.id, product.anmout + 1);
+    updateAmount(product.id, product.amount + 1);
   }
 
   function decrement(product) {
-    updateAmount(product.id, product.anmout - 1);
+    updateAmount(product.id, product.amount - 1);
   }
   return (
     <Container>
@@ -49,7 +49,7 @@ function Cart({ cart, total, removeFromCart, updateAmount }) {
                   <button type="button" onClick={() => decrement(product)}>
                     <MdRemoveCircleOutline size={20} color="#7159c1" />
                   </button>
-                  <input type="number" readOnly value={product.anmout} />
+                  <input type="number" readOnly value={product.amount} />
                   <button type="button" onClick={() => increment(product)}>
                     <MdAddCircleOutline size={20} color="#7159c1" />
                   </button>
@@ -85,11 +85,11 @@ function Cart({ cart, total, removeFromCart, updateAmount }) {
 const mapStateToProps = state => ({
   cart: state.cart.map(product => ({
     ...product,
-    subtotal: formatPrice(product.price * product.anmout),
+    subtotal: formatPrice(product.price * product.amount),
   })),
   total: formatPrice(
     state.cart.reduce((total, product) => {
-      return total + product.price * product.anmout;
+      return total + product.price * product.amount;
     }, 0)
   ),
 });

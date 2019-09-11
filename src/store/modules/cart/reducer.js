@@ -13,15 +13,9 @@ export default function cart(state = [], action) {
       // ];
 
       return produce(state, draft => {
-        const productIndex = draft.findIndex(p => p.id === action.product.id);
-        if (productIndex >= 0) {
-          draft[productIndex].anmout += 1;
-        } else {
-          draft.push({
-            ...action.product,
-            anmout: 1,
-          });
-        }
+        const { product } = action;
+
+        draft.push(product);
       });
     case '@cart/REMOVE':
       return produce(state, draft => {
@@ -30,14 +24,14 @@ export default function cart(state = [], action) {
           draft.splice(productIndex, 1);
         }
       });
-    case '@cart/UPDATE_ANMOUT': {
-      if (action.anmout <= 0) {
+    case '@cart/UPDATE_AMOUNT': {
+      if (action.amount <= 0) {
         return state;
       }
       return produce(state, draft => {
         const productIndex = draft.findIndex(p => p.id === action.id);
         if (productIndex >= 0) {
-          draft[productIndex].anmout = Number(action.anmout);
+          draft[productIndex].amount = Number(action.amount);
         }
       });
     }
